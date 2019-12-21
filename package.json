@@ -24,5 +24,8 @@
   "bugs": {
     "url": "https://github.com/Boese/card-game-engine/issues"
   },
-  "homepage": "https://github.com/Boese/card-game-engine#readme"
+  "homepage": "https://github.com/Boese/card-game-engine#readme",
+  "devDependencies": {
+    "@types/node": "^12.12.21"
+  }
 }
