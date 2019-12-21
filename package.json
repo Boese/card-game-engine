@@ -1,0 +1,28 @@
+{
+  "name": "card_game_engine",
+  "version": "1.0.0",
+  "description": "Game engine around creating reusable card games",
+  "main": "index.js",
+  "scripts": {
+    "transpile": "tsc",
+    "dev": "npm run transpile && node dist\\index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Boese/card-game-engine.git"
+  },
+  "keywords": [
+    "Node",
+    "Typescript",
+    "Engine",
+    "Javascript",
+    "Game",
+    "Card"
+  ],
+  "author": "Chris Boese",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Boese/card-game-engine/issues"
+  },
+  "homepage": "https://github.com/Boese/card-game-engine#readme"
+}
