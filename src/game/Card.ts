@@ -8,14 +8,16 @@ export abstract class Card<T> {
 
     protected identifier: T;
 
-    Card(identifier: T) {
+    constructor(identifier: T) {
         this.identifier = identifier;
     }
+
+    public Get() { return this.identifier; }
 
     /*
         return -1 for lhs < rhs
         return 0 for lhs == rhs
         return 1 for lhs > rhs
     */
-    public abstract Compare(lhs: Card<T>, rhs: Card<T>) : number;
+    public abstract Compare(rhs: T) : number;
 }

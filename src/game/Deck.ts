@@ -12,13 +12,18 @@ export class Deck<T> {
 
     Deck() {}
 
+    Get() { return this.deck; }
+    GetOrder() { return this.deck.map(m => m.id)}
+
+    Size() { return this.deck.length; }
+
     Add(card: Card<T>) : number {
         let nextId = this.card_id++;
         this.deck.push({id: nextId, card: card});
         return nextId;
     }
 
-    Get(id: number) : Card<T> { 
+    GetCard(id: number) : Card<T> { 
         let container = this.deck.find(m => m.id == id);
         if (!container) {
             throw new Error("Error: Card does not exist in Deck. ID: " + id);
@@ -36,7 +41,7 @@ export class Deck<T> {
     }
 
     Sort() {
-        this.deck.sort((a, b) => a.card.Compare(a.card, b.card));
+        this.deck.sort((a, b) => a.card.Compare(b.card.Get()));
     }
 
     Clear() {
