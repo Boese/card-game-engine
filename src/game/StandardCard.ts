@@ -1,6 +1,7 @@
 import { Card } from '../game/Card'
 
 export enum StandardCardType {
+    None,
     Hearts,
     Diamonds,
     Spades,
@@ -8,7 +9,8 @@ export enum StandardCardType {
 }
 
 export enum StandardCardValue {
-    Two = 0,
+    Joker = 0,
+    Two,
     Three,
     Four,
     Five,

@@ -18,6 +18,10 @@ export abstract class Card<T> {
         return -1 for lhs < rhs
         return 0 for lhs == rhs
         return 1 for lhs > rhs
+
+        TODO: Need a way to add extra information to Compare function.
+        ie: Trump involved? Ace of Hearts (trump) would beat Ace of clubs
+        idea: Add a second item: Compare(rhs: T, extraInfo: V)
     */
     public abstract Compare(rhs: T) : number;
 }

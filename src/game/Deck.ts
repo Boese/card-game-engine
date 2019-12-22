@@ -28,7 +28,7 @@ export class Deck<T> {
         if (!container) {
             throw new Error("Error: Card does not exist in Deck. ID: " + id);
         }
-        return container.card
+        return container.card;
     }
 
     Remove(id: number) : void {
