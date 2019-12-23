@@ -1,4 +1,4 @@
-let rand_seed = require('bindings')('..\\src\\random-seed\\build\\Release\\random_seed.node');
+import { RandomGenerator } from '../../src/random-seed'
 
 import 'mocha'
 import chai from 'chai'
@@ -7,23 +7,36 @@ import sinonChai from 'sinon-chai'
 chai.use(sinonChai)
 
 const TEST_SEED=10;
+const TEST_MIN=0;
+const TEST_MAX=1000;
 
 describe('Random Seed', () => {
 
+    let rand_seed: RandomGenerator;
     beforeEach(() => {
-        rand_seed.srand(TEST_SEED);
+        rand_seed = new RandomGenerator();
+        rand_seed.seed(TEST_SEED);
     })
-    it('Check resetting srand ', () => {
+    it('Check multiple instances', () => {
+        let a = new RandomGenerator();
+        let b = new RandomGenerator();
+        a.seed(11);
+        b.seed(11);
+        let a_rand = a.generate(TEST_MIN, TEST_MAX);
+        let b_rand = b.generate(TEST_MIN, TEST_MAX);
+        chai.expect(a_rand).to.be.equal(b_rand);
+    })
+    it('Check resetting seed ', () => {
         // Call rand() twice
-        let seed1 = rand_seed.rand();
-        let seed2 = rand_seed.rand();
+        let seed1 = rand_seed.generate(TEST_MIN, TEST_MAX);
+        let seed2 = rand_seed.generate(TEST_MIN, TEST_MAX);
 
         // Reset seed
-        rand_seed.srand(TEST_SEED);
+        rand_seed.seed(TEST_SEED);
 
         // Call rand() twice again
-        let seed3 = rand_seed.rand();
-        let seed4 = rand_seed.rand();
+        let seed3 = rand_seed.generate(TEST_MIN, TEST_MAX);
+        let seed4 = rand_seed.generate(TEST_MIN, TEST_MAX);
 
         // Should equal
         chai.expect(seed1).to.equal(seed3);
@@ -33,18 +46,13 @@ describe('Random Seed', () => {
     it('should return correct sequence for 3 elements', () => {
 
         // Get 3 random numbers
-        let a = [rand_seed.rand(), rand_seed.rand(), rand_seed.rand()];
+        let a = [rand_seed.generate(TEST_MIN, TEST_MAX), rand_seed.generate(TEST_MIN, TEST_MAX), rand_seed.generate(TEST_MIN, TEST_MAX)];
 
-        // Reset srand seed
-        rand_seed.srand(TEST_SEED);
+        // Reset seed seed
+        rand_seed.seed(TEST_SEED);
 
         // Get 3 random numbers from rand sequence
-        let sequence_buffer:ArrayBuffer = rand_seed.rsequence(3);
-        let sequence_data_view: DataView = new DataView(sequence_buffer);
-        let b = [
-            sequence_data_view.getInt32(0, true), 
-            sequence_data_view.getInt32(4, true), 
-            sequence_data_view.getInt32(8, true)];
+        let b = rand_seed.sequence(TEST_MIN, TEST_MAX, 3);
 
         // Check a,b,c = rand sequence
         chai.expect(a).eql(b);
